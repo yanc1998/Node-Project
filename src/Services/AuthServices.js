@@ -1,6 +1,6 @@
 const passport = require('passport');
 const error_types = require('../errors/errors_type');
-
+const UserService = require('../Services/UserService')
 let AuthService = {
     async Login(user, next) {
         passport.authenticate("local", { session: false }, (_user) => {
@@ -18,6 +18,12 @@ let AuthService = {
         })
     },
     async Register(user, next) {
+        _user = await UserService.FindByEmail(user.email)
+        if(_user){
+            return error_types.Error403('user alredy exist')
+        }
+
+       return await UserService.AddUser(user)
 
     },
     async LogOut(user) {

@@ -1,7 +1,6 @@
 const UserService = require('../Services/UserService');
 const passportJwt = require('passport-jwt');
 const passportLocal = require('passport-local');
-const passport = require('passport');
 const bcrypt = require('bcrypt');
 
 const jwtStrategy = passportJwt.Strategy;
@@ -14,7 +13,7 @@ opts.secretOrKey = process.env.JWT_SECRET;
 opts.algorithms = [process.env.JWT_ALGORITHM];
 
 let jwtService = {
-    async configLocalStrategy() {
+    async configLocalStrategy(passport) {
         passport.use(new localStrategy({
             usernameField: "email",
             passwordField: "password",
@@ -32,7 +31,7 @@ let jwtService = {
         }
         ));
     },
-    async configJwttrategy() {
+    async configJwttrategy(passport) {
         passport.use(new jwtStrategy(opts, (jwt_payload, done) => {
             const user = UserService.FindById(jwt_payload.sub);
             if (!user) {

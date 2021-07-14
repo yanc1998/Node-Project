@@ -16,8 +16,8 @@ mongoose.connect(process.env.MONGO_URI, {
     useCreateIndex: true
 }).catch((err) => { console.log(err); process.exit(1) });
 
-jwtService.configLocalStrategy();
-jwtService.configJwttrategy();
+jwtService.configLocalStrategy(passport);
+jwtService.configJwttrategy(passport);
 
 let app = express();
 
@@ -26,7 +26,8 @@ app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use('/public', express.static(process.cwd() + '/public'));
 app.use(nodemon);
-
+const Router = require('./routers')
+Router(app,passport)
 let port = process.env.PORT;
 app.listen(port, () => {
     console.log(`server runing in port ${port}`);
