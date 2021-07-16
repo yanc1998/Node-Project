@@ -7,7 +7,7 @@ let UserRepository = {
         return user;
     },
     async FindByEmail(email) {
-        const user = await User.findOne(email);
+        const user = await User.findOne({ 'email': email });
         return user;
     },
     AddUser: async (user) => {

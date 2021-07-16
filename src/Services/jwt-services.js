@@ -12,14 +12,15 @@ opts.jwtFromRequest = extractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = process.env.JWT_SECRET;
 opts.algorithms = [process.env.JWT_ALGORITHM];
 
+
 let jwtService = {
-    async configLocalStrategy(passport) {
+    configLocalStrategy: async (passport) => {
         passport.use(new localStrategy({
             usernameField: "email",
             passwordField: "password",
             session: false
-        }, (email, password, done) => {
-            const user = UserService.FindByEmail(email);
+        }, async (email, password, done) => {
+            let user = await UserService.FindByEmail(email);
             if (!user) {
                 return done(null, false);
             }
@@ -31,9 +32,11 @@ let jwtService = {
         }
         ));
     },
-    async configJwttrategy(passport) {
-        passport.use(new jwtStrategy(opts, (jwt_payload, done) => {
-            const user = UserService.FindById(jwt_payload.sub);
+    configJwttrategy: async (passport) => {
+        passport.use(new jwtStrategy(opts, async (jwt_payload, done) => {
+            console.log(jwt_payload,'jwt 22')
+            const user = await UserService.FindById(jwt_payload.sub);
+            console.log(user,'este')
             if (!user) {
                 return done(null, false);
             }

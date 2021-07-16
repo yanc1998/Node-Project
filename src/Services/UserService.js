@@ -9,7 +9,7 @@ let UserService = {
             email: user.email
 
         }
-        return await UserRepository.AddUser(user);
+        return await UserRepository.AddUser(_user);
     },
     async RemoveUser(id) {
         return await UserRepository.RemoveById(id);
