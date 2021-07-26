@@ -4,7 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const passport = require('passport');
-//const nodemon = require('nodemon');
+const nodemon = require('nodemon');
 
 const jwtService = require('./Services/jwt-services');
 const errormiddleware = require('./Middleware/errors');
@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use('/public', express.static(process.cwd() + '/public'));
-//app.use(nodemon);
+app.use(nodemon);
 const Router = require('./routers')
 Router(app)
 app.use(errormiddleware.errorHandler)
