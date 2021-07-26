@@ -3,7 +3,7 @@ const error_types = require('../errors/errors_type');
 let middlewareErrors = {
 
     errorHandler: (error, req, res, next) => {
-        console.log("ejecutando middleware de control de errores");
+        console.log("ejecutando middleware de control de errores",error.name);
         if (error instanceof error_types.InfoError)
             res.status(200).json({ error: error.message });
         else if (error instanceof error_types.Error404)
@@ -25,3 +25,5 @@ let middlewareErrors = {
         res.status(404).json({ error: "endpoint not found" });
     }
 }
+
+module.exports = middlewareErrors

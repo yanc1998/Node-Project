@@ -1,5 +1,9 @@
+const User = require('../Models/User');
 const UserRepository = require("../Repositories/UserRepository")
 const bcrypt = require('bcrypt');
+
+
+
 
 let UserService = {
     async AddUser(user) {
@@ -22,6 +26,18 @@ let UserService = {
     },
     async FindById(id) {
         return await UserRepository.FindById(id);
+    },
+    async FindAll() {
+        return await UserRepository.Find({});
+    },
+    async Find(filter) {
+        return await UserRepository.Find(filter);
+    },
+    async deleteAll() {
+        return await UserRepository.Delete({});
+    },
+    async Delete(filter) {
+        return await UserRepository.Delete(filter);
     }
 }
 

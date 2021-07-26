@@ -1,10 +1,11 @@
+const error_types = require('../errors/errors_type');
 const User = require('../Models/User');
 
-let UserRepository = {
+let UserRepository ={
 
     FindById: async (id) => {
-        const user = await User.findById(id);
-        return user;
+        let user = await User.findById(id);
+        return user
     },
     async FindByEmail(email) {
         const user = await User.findOne({ 'email': email });
@@ -32,6 +33,12 @@ let UserRepository = {
             users
         }
 
+    },
+    Find: async (filter) => {
+        return await User.find(filter);
+    },
+    Delete: async (filter) => {
+        return await User.deleteMany(filter);
     }
 
 }

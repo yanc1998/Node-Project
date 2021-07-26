@@ -1,7 +1,11 @@
-const { Login } = require("../Services/AuthServices");
+const { Login, Register } = require("../Services/AuthServices");
 
 let AuthController = {
-    async Login(user){
+    Login: async (user) => {
         return await Login(user)
+    },
+    Register: async (user) => {
+        return await Register(user)
     }
 }
+module.exports = AuthController

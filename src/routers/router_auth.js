@@ -1,14 +1,14 @@
-const AuthService = require("../Services/AuthServices")
+const AuthController = require('../Controllers/AuthController')
 const authmiddleware = require('../Middleware/authmiddleware')
-let router_auth = function (app, passport) {
+let router_auth = function (app) {
     app.post('/auth/login',authmiddleware.local_auth, async (req, resp) => {
-        console.log('okkkk')
-        resp.json(await AuthService.Login(req.user))
+        console.log('login')
+        resp.json(await AuthController.Login(req.user))
     })
 
     app.post('/auth/register', async (req, resp) => {
         console.log('register')
-        resp.json(await AuthService.Register(req.body))
+        resp.json(await AuthController.Register(req.body))
     })
 
 }
