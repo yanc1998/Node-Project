@@ -1,7 +1,7 @@
 const error_types = require('../errors/errors_type');
 const User = require('../Models/User');
 
-let UserRepository ={
+let UserRepository = {
 
     FindById: async (id) => {
         let user = await User.findById(id);
